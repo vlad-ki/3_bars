@@ -46,10 +46,11 @@ if __name__ == '__main__':
     longitude = int(input('Введите свои кординаты (долгота): '))
     latitude = int(input('Введите свои кординаты (широта): '))
 
-    data = load_data(filepath)
+    json_data = load_data(filepath)
 
-    print('Самый большой бар: {}\n'.format(json.dumps(get_biggest_bar(data), indent=4, ensure_ascii=False)))
-    print('Самый маленький бар: {}\n'.format(json.dumps(get_smallest_bar(data), indent=4, ensure_ascii=False)))
+    print('Самый большой бар: {}\n'.format(json.dumps(
+        get_biggest_bar(json_data), indent=4, ensure_ascii=False)))
+    print('Самый маленький бар: {}\n'.format(json.dumps(
+        get_smallest_bar(json_data), indent=4, ensure_ascii=False)))
     print('Ближайший бар: {}\n'.format(json.dumps(
-        get_closest_bar(data, longitude, latitude), indent=4, ensure_ascii=False))
-    )
+        get_closest_bar(json_data, longitude, latitude), indent=4, ensure_ascii=False)))
