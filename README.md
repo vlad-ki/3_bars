@@ -11,7 +11,6 @@
 ```#!bash
 
 $ python bars.py # possibly requires call of python3 executive instead of just python
-# FIXME вывести пример ответа скрипта
 $ python bars.py
 Введите путь к файлу: /Users/user/Documents/data-2897-2016-11-23_2.json
 Введите свои кординаты (долгота): 22
