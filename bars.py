@@ -12,13 +12,11 @@ def load_data(filepath):
 
 
 def get_biggest_bar(data):
-    get_biggest_bar = max(data, key=lambda x: x['SeatsCount'])
-    return get_biggest_bar
+    return max(data, key=lambda x: x['SeatsCount'])
 
 
 def get_smallest_bar(data):
-    smallest_bar = min(data, key=lambda x: x['SeatsCount'])
-    return smallest_bar
+    return min(data, key=lambda x: x['SeatsCount'])
 
 
 def get_closest_bar(data, longitude, latitude):
@@ -34,18 +32,14 @@ def get_closest_bar(data, longitude, latitude):
 
         current_distance = sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
-        if not min_distance or current_distance < min_distance:
-            min_distance = current_distance
-            closest_bar = bar
+        min_distance = current_distance if min_distance is None else min(
+            (current_distance, min_distance))
+        closest_bar = bar if min((current_distance, min_distance)) else closest_bar
 
     return closest_bar
 
 
-if __name__ == '__main__':
-    filepath = input('Введите путь к файлу: ')
-    longitude = int(input('Введите свои кординаты (долгота): '))
-    latitude = int(input('Введите свои кординаты (широта): '))
-
+def print_result(filepath, longitude, latitude):
     json_data = load_data(filepath)
 
     print('Самый большой бар: {}\n'.format(json.dumps(
@@ -54,3 +48,16 @@ if __name__ == '__main__':
         get_smallest_bar(json_data), indent=4, ensure_ascii=False)))
     print('Ближайший бар: {}\n'.format(json.dumps(
         get_closest_bar(json_data, longitude, latitude), indent=4, ensure_ascii=False)))
+
+
+def get_data():
+    filepath = input('Введите путь к файлу: ')
+    longitude = int(input('Введите свои кординаты (долгота): '))
+    latitude = int(input('Введите свои кординаты (широта): '))
+
+    return filepath, longitude, latitude
+
+
+if __name__ == '__main__':
+    users_data = get_data()
+    print_result(*users_data)
