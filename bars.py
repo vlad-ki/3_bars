@@ -20,23 +20,18 @@ def get_smallest_bar(data):
 
 
 def get_closest_bar(data, longitude, latitude):
-    closest_bar = None
-    min_distance = None
-    for bar in data:
+    def distance_calculation(bar, longitude=longitude, latitude=latitude):
+
         bar_latitude = bar['geoData']['coordinates'][1]
         bar_longitude = bar['geoData']['coordinates'][0]
-        x2 = bar_latitude
+        x2 = latitude
         x1 = bar_latitude
         y2 = longitude
         y1 = bar_longitude
 
-        current_distance = sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+        return sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
-        min_distance = current_distance if min_distance is None else min(
-            (current_distance, min_distance))
-        closest_bar = bar if min((current_distance, min_distance)) else closest_bar
-
-    return closest_bar
+    return min(data, key=distance_calculation)
 
 
 def print_result(filepath, longitude, latitude):
